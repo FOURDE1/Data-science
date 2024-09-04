@@ -9,12 +9,6 @@ This project is designed to scrape articles from the Al Mayadeen website. The sc
 - **Python 3.x**: Ensure Python is installed on your system.
 - **Scrapy**: A powerful web scraping framework for Python.
 
-To install the necessary Python libraries, run:
-
-```bash
-pip install scrapy
-```
-
 ## Project Structure
 
 - **`web_scraper.py`**: The main Scrapy spider script.
@@ -29,8 +23,8 @@ pip install scrapy
    Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/FOURDE1/Data-science.git
+   cd Task1
    ```
 
 2. **Create a Virtual Environment**
@@ -55,6 +49,7 @@ pip install scrapy
 To run the spider and start scraping:
 
 ```bash
+cd almayadeen_scaper
 scrapy crawl almayadeen
 ```
 
