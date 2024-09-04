@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Keywords"])
 
 @router.get("/top_keywords")
 async def top_keywords():

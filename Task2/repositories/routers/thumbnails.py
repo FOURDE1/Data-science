@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Thumbnails"])
 
 @router.get("/articles_with_thumbnail")
 async def articles_with_thumbnail():

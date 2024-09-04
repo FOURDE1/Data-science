@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Videos"])
 
 @router.get("/articles_with_video")
 async def articles_with_video():

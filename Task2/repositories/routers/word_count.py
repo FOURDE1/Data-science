@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=	["Word Count"])
 
 @router.get("/articles_by_word_count")
 async def articles_by_word_count():

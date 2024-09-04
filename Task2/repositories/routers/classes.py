@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Classes"])
 
 @router.get("/articles_by_classes")
 async def articles_by_classes():

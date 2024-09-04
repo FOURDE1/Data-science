@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Languages"])
 
 @router.get("/articles_by_language")
 async def articles_by_language():

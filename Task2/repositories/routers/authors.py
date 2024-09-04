@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Authors"])
 
 @router.get("/top_authors")
 async def top_authors():

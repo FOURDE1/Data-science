@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter()
+router = APIRouter(tags=["Dates"])
 
 @router.get("/articles_by_date")
 async def articles_by_date():
