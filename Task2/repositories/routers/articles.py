@@ -45,12 +45,12 @@ async def articles_by_specific_date(date: str):
 
 @router.get("/articles_by_coverage/{coverage}")
 async def articles_by_coverage(coverage: str):
-    result = list(collection.find({"classes": coverage}))
+    result = list(collection.find({"classes.value": coverage}).limit(50))
     return convert_object_ids(result)
 
 @router.get("/articles_by_keyword/{keyword}")
 async def articles_by_keyword(keyword: str):
-    result = list(collection.find({"keywords": keyword}))
+    result = list(collection.find({"keywords": {"$regex": keyword, "$options": "i"}}))
     return convert_object_ids(result)
 
 @router.get("/articles_by_year/{year}")

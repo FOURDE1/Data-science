@@ -5,5 +5,5 @@ router = APIRouter(tags=["Thumbnails"])
 
 @router.get("/articles_with_thumbnail")
 async def articles_with_thumbnail():
-    result = list(collection.find({"thumbnail": {"$ne": None}}))
+    result = list(collection.find({"thumbnail": {"$ne": None}}).limit(100))
     return result

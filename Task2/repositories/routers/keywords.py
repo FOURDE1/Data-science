@@ -20,6 +20,17 @@ async def popular_keywords_last_X_days(days: int):
     from datetime import datetime, timedelta
     date_threshold = datetime.now() - timedelta(days=days)
     pipeline = [
+        {
+            "$addFields": {
+                "published_time": {
+                    "$cond": {
+                        "if": {"$eq": [{"$type": "$published_time"}, "string"]},
+                        "then": {"$dateFromString": {"dateString": "$published_time"}},
+                        "else": "$published_time"
+                    }
+                }
+            }
+        },
         {"$match": {"published_time": {"$gte": date_threshold}}},
         {"$unwind": "$keywords"},
         {"$group": {"_id": "$keywords", "count": {"$sum": 1}}},

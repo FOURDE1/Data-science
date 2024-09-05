@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from repositories.routers import articles, authors, keywords, classes, languages, videos, dates, word_count, thumbnails, updates
+from repositories.routers import articles, authors, keywords, classes, languages, dates, word_count, thumbnails, updates
 
 app = FastAPI()
 
@@ -8,7 +8,6 @@ app.include_router(authors.router)
 app.include_router(articles.router)
 app.include_router(classes.router)
 app.include_router(languages.router)
-app.include_router(videos.router)
 app.include_router(dates.router)
 app.include_router(word_count.router)
 app.include_router(thumbnails.router)
