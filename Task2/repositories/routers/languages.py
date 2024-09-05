@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from repositories.database import collection
+from repositories.utils import convert_object_ids
 
 router = APIRouter(tags=["Languages"])
 
@@ -10,4 +11,4 @@ async def articles_by_language():
         {"$sort": {"count": -1}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)

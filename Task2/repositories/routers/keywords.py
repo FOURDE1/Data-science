@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from repositories.database import collection
+from repositories.utils import convert_object_ids
 
 router = APIRouter(tags=["Keywords"])
 
@@ -12,7 +13,7 @@ async def top_keywords():
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/popular_keywords_last_X_days/{days}")
 async def popular_keywords_last_X_days(days: int):
@@ -26,4 +27,4 @@ async def popular_keywords_last_X_days(days: int):
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)

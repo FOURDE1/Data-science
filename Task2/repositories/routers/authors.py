@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from repositories.database import collection
+from repositories.utils import convert_object_ids
 
 router = APIRouter(tags=["Authors"])
 
@@ -11,9 +12,9 @@ async def top_authors():
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_by_author/{author_name}")
 async def articles_by_author(author_name: str):
     result = list(collection.find({"author": author_name}))
-    return result
+    return convert_object_ids(result)

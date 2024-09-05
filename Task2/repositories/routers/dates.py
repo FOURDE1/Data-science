@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from repositories.database import collection
+from repositories.utils import convert_object_ids
 
 router = APIRouter(tags=["Dates"])
 
@@ -26,12 +27,12 @@ async def articles_by_date():
         {"$sort": {"_id": 1}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_by_specific_date/{date}")
 async def articles_by_specific_date(date: str):
     result = list(collection.find({"published_time": {"$regex": f"^{date}"}}))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_by_year/{year}")
 async def articles_by_year(year: int):
@@ -40,7 +41,7 @@ async def articles_by_year(year: int):
         {"$group": {"_id": {"$year": "$published_time"}, "count": {"$sum": 1}}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_by_month/{year}/{month}")
 async def articles_by_month(year: int, month: int):
@@ -49,11 +50,11 @@ async def articles_by_month(year: int, month: int):
         {"$group": {"_id": {"$month": "$published_time"}, "count": {"$sum": 1}}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_last_X_hours/{hours}")
 async def articles_last_X_hours(hours: int):
     from datetime import datetime, timedelta
     date_threshold = datetime.now() - timedelta(hours=hours)
     result = list(collection.find({"published_time": {"$gte": date_threshold}}))
-    return result
+    return convert_object_ids(result)

@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from repositories.database import collection
+from repositories.utils import convert_object_ids
 
 router = APIRouter(tags=["Classes"])
 
@@ -11,7 +12,7 @@ async def articles_by_classes():
         {"$sort": {"count": -1}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/top_classes")
 async def top_classes():
@@ -22,7 +23,7 @@ async def top_classes():
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
 
 @router.get("/articles_grouped_by_coverage")
 async def articles_grouped_by_coverage():
@@ -32,4 +33,4 @@ async def articles_grouped_by_coverage():
         {"$sort": {"count": -1}}
     ]
     result = list(collection.aggregate(pipeline))
-    return result
+    return convert_object_ids(result)
