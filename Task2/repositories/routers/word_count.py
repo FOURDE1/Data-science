@@ -1,12 +1,15 @@
 from fastapi import APIRouter
 from repositories.database import collection
 
-router = APIRouter(tags=	["Word Count"])
+router = APIRouter(tags=["Word Count"])
 
 @router.get("/articles_by_word_count")
 async def articles_by_word_count():
+    # Convert word_count to integer and group by it
     pipeline = [
-        {"$group": {"_id": "$word_count", "count": {"$sum": 1}}},
+        {"$match": {"word_count": {"$type": "string"}}},  # Ensure word_count is a string
+        {"$addFields": {"word_count_int": {"$toInt": "$word_count"}}},  # Convert to integer
+        {"$group": {"_id": "$word_count_int", "count": {"$sum": 1}}},
         {"$sort": {"_id": 1}}
     ]
     result = list(collection.aggregate(pipeline))
@@ -14,13 +17,28 @@ async def articles_by_word_count():
 
 @router.get("/articles_by_word_count_range/{min}/{max}")
 async def articles_by_word_count_range(min: int, max: int):
-    result = list(collection.find({"word_count": {"$gte": min, "$lte": max}}))
+    # Convert word_count to integer in the query using aggregation pipeline
+    pipeline = [
+        {"$match": {"word_count": {"$type": "string"}}},  # Ensure word_count is a string
+        {"$addFields": {"word_count_int": {"$toInt": "$word_count"}}},  # Convert to integer
+        {"$match": {
+            "$and": [
+                {"word_count_int": {"$gte": min}},
+                {"word_count_int": {"$lte": max}}
+            ]
+        }},
+        {"$group": {"_id": "$word_count_int", "count": {"$sum": 1}}},
+        {"$sort": {"_id": 1}}
+    ]
+    result = list(collection.aggregate(pipeline))
     return result
 
 @router.get("/longest_articles")
 async def longest_articles():
+    # Convert word_count to integer and sort
     pipeline = [
-        {"$sort": {"word_count": -1}},
+        {"$addFields": {"word_count_int": {"$toInt": "$word_count"}}},  # Convert to integer
+        {"$sort": {"word_count_int": -1}},
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
@@ -28,8 +46,10 @@ async def longest_articles():
 
 @router.get("/shortest_articles")
 async def shortest_articles():
+    # Convert word_count to integer and sort
     pipeline = [
-        {"$sort": {"word_count": 1}},
+        {"$addFields": {"word_count_int": {"$toInt": "$word_count"}}},  # Convert to integer
+        {"$sort": {"word_count_int": 1}},
         {"$limit": 10}
     ]
     result = list(collection.aggregate(pipeline))
@@ -37,10 +57,14 @@ async def shortest_articles():
 
 @router.get("/articles_with_specific_keyword_count/{count}")
 async def articles_with_specific_keyword_count(count: int):
-    result = list(collection.find({"$expr": {"$eq": [{"$size": "$keywords"}, count]}}))
+    # Ensure keywords is treated as an array
+    result = list(collection.find({"$expr": {"$eq": [{"$size": {"$split": ["$keywords", ","]}}, count]}}))
     return result
 
 @router.get("/articles_with_more_than/{word_count}")
 async def articles_with_more_than(word_count: int):
-    result = list(collection.find({"word_count": {"$gt": word_count}}))
+    # Convert word_count to integer and perform comparison
+    result = list(collection.find({
+        "$expr": {"$gt": [{"$toInt": "$word_count"}, word_count]}
+    }))
     return result
