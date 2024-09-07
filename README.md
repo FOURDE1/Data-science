@@ -26,7 +26,3 @@ Navigate to the directory of the task you are interested in and follow the instr
 ## Contributing
 
 If you have suggestions or improvements for any of the tasks, please submit a pull request or open an issue.
-
-## License
-
-This repository is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
