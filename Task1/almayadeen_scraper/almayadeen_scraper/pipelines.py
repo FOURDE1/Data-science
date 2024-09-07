@@ -28,7 +28,7 @@ class AlmayadeenPipeline:
         return item
 
     def save_article(self, file_path, item):
-        # Convert item to dictionary and serialize datetime fields
+       
         item_dict = dict(item)
         if 'published_time' in item_dict and isinstance(item_dict['published_time'], datetime):
             item_dict['published_time'] = item_dict['published_time'].isoformat()

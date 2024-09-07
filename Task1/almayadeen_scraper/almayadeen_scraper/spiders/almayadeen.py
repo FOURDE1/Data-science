@@ -1,14 +1,14 @@
 import scrapy
 from scrapy import Request
 from datetime import datetime
-from ..items import ArticleItem  # Adjust the import according to your project structure
+from ..items import ArticleItem
 import json
 import logging
 
 class AlmayadeenSpider(scrapy.Spider):
     name = "almayadeen"
     allowed_domains = ["almayadeen.net"]
-    start_urls = ["https://www.almayadeen.net/sitemaps/all.xml"]  # Update this URL if necessary
+    start_urls = ["https://www.almayadeen.net/sitemaps/all.xml"]
 
     def parse(self, response):
         self.logger.info(f"Parsing main sitemap: {response.url}")
@@ -35,12 +35,12 @@ class AlmayadeenSpider(scrapy.Spider):
     def parse_article(self, response):
         self.logger.info(f"Parsing article: {response.url}")
 
-        # Extract JSON data from the script tag
+
         script_content = response.xpath('//script[@id="tawsiyat-metadata"]/text()').get()
         if script_content:
             data = json.loads(script_content)
 
-            # Convert fields to appropriate types
+
             if 'word_count' in data and data['word_count']:
                 data['word_count'] = int(data['word_count'])
             if 'published_time' in data and data['published_time']:
@@ -48,7 +48,7 @@ class AlmayadeenSpider(scrapy.Spider):
             if 'last_updated' in data and data['last_updated']:
                 data['last_updated'] = datetime.fromisoformat(data['last_updated'].replace('Z', '+00:00'))
 
-            # Create item
+            
             item = ArticleItem(
                 type=data.get('type'),
                 postid=data.get('postid'),
