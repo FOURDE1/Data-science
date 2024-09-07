@@ -1,19 +1,18 @@
-
+// src/pages/ChartPage.jsx
 import React from 'react';
-import BarChart from '../components/BarChart';
-import useFetchData from '../hooks/useFetchData';
+import Layout from '../components/layouts/Layout';
+import Header from '../components/common/Header';
+import Loading from '../components/common/Loading';
+import Error from '../components/common/Error';
 
-const ChartPage = () => {
-  const { data, loading, error } = useFetchData('/articles/top_keywords');
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
+const ChartPage = ({ title, loading, error, ChartComponent, data }) => {
   return (
-    <div>
-      <h1>Chart Visualization</h1>
-      <BarChart data={data} />
-    </div>
+    <Layout>
+      <Header title={title} />
+      {loading && <Loading />}
+      {error && <Error message={error.message} />}
+      {data.length > 0 && <ChartComponent data={data} />}
+    </Layout>
   );
 };
 

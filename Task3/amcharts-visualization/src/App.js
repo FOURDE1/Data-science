@@ -1,21 +1,31 @@
-
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import ChartPage from './pages/ChartPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import TopKeywords from './pages/TopKeywords';
+import './App.css';
+import TopAuthors from './pages/TopAuthors';
+import ArticlesByDate from './pages/ArticlesByDate';
+import ArticlesByWordCount from './pages/ArticlesByWordCount';
+import ArticlesByLanguage from './pages/ArticlesByLanguage';
 
-const App = () => {
-  return (
-    <Router>
+import ArticlesByCategory from './pages/ArticlesByCategory';
+import RecentArticles from './pages/RecentArticles';
+
+const App = () => (
+  <Router>
+    <div className="app">
       <Routes>
-        {/* Route for the root path "/" */}
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        {/* Route for the Dashboard and Chart pages */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/chart" element={<ChartPage />} />
+        <Route path="/chart/top_keywords" element={<TopKeywords />} />
+        <Route path="/" element={<Dashboard />} />
+       < Route path="/chart/top_authors" element={<TopAuthors />} />
+       < Route path="/chart/articles_by_date" element={<ArticlesByDate />} />
+       < Route path="/chart/articles_by_word_count" element={<ArticlesByWordCount />} />
+       < Route path="/chart/articles_by_language" element={<ArticlesByLanguage />} />
+       < Route path="/chart/articles_by_classes" element={<ArticlesByCategory />} />
+       < Route path="/chart/recent_articles" element={<RecentArticles/>} />
       </Routes>
-    </Router>
-  );
-};
+    </div>
+  </Router>
+);
 
 export default App;
