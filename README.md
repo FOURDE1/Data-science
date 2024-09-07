@@ -9,7 +9,7 @@ This repository contains multiple tasks/projects. Each task is located in its ow
    - **Directory**: [task1/](Task1/)
    - **Details**: See the `README.md` file in the [task1](Task1/) directory.
 
-2. **Task 2: Another Task**
+2. **Task 2: Endpoints to Retrieve scraped data**
    - **Description**: Description of another task.
    - **Directory**: [task2/](Task2/)
    - **Details**: See the `README.md` file in the [task2](Task2/) directory.
