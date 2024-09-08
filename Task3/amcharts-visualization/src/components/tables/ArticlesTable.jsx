@@ -3,33 +3,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
+import styles from './ArticlesTable.module.css'; // Import CSS modules
 
 const ArticlesTable = ({ data }) => {
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Published Time</th>
-          <th>URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map(article => (
-          <tr key={article.id}>
-            <td>{article.title}</td>
-            <td>{article.author}</td>
-            <td>{new Date(article.publishedTime).toLocaleString()}</td>
-            <td>
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                Link
-              </a>
-            </td>
+    <div className={`table-responsive mt-4 mb-4 ${styles.tableContainer}`}>
+      <Table striped bordered hover responsive="sm" className="shadow-sm rounded">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published Time</th>
+            <th>URL</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {data.map((article) => (
+            <tr key={article.id}>
+              <td className="font-weight-bold">{article.title}</td>
+              <td>{article.author}</td>
+              <td>{new Date(article.publishedTime).toLocaleString()}</td>
+              <td>
+                <a href={article.url} target="_blank" rel="noopener noreferrer" className={styles.textDecorationNone}>
+                  Open Link
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

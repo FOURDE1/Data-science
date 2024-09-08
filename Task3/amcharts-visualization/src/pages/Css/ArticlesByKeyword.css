@@ -1,0 +1,17 @@
+/* ArticlesByKeyword.css */
+.search-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 20px 0;
+  }
+
+  .search-input {
+	padding: 10px;
+	width: 200px;
+  }
+
+  .search-button {
+	padding: 10px;
+	margin-left: 10px;
+  }

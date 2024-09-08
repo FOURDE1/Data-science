@@ -1,0 +1,27 @@
+/* src/components/tables/ArticlesTable.module.css */
+.tableContainer {
+	background-color: white;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: 20px 0;
+  }
+
+  .table th, .table td {
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px;
+  }
+
+  .table th {
+	background-color: #343a40;
+	color: white;
+  }
+
+  .table td {
+	background-color: #f8f9fa;
+  }
+
+  .textDecorationNone:hover {
+	color: #0056b3;
+	text-decoration: underline;
+  }

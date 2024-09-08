@@ -2,6 +2,7 @@ from pymongo.collection import Collection
 from typing import List, Dict
 from bson import ObjectId
 from datetime import datetime, timedelta
+from typing import Any
 
 class ArticlesRepository:
     def __init__(self, collection: Collection):
@@ -61,10 +62,19 @@ class ArticlesRepository:
         articles = list(self.collection.aggregate(pipeline))
         return [self._convert_bson_to_json(article) for article in articles]
 
-    def get_articles_by_keyword(self, keyword: str) -> List[Dict]:
-        query = {"keywords": keyword}
-        articles = list(self.collection.find(query))
-        return [self._convert_bson_to_json(article) for article in articles]
+
+    def get_articles_by_keyword(self, keyword: str) -> Dict[str, Any]:
+        query = {"keywords": {"$regex": f".*{keyword}.*", "$options": "i"}}
+        projection = {"_id": 1, "title": 1, "postid": 1, "word_count": 1, "url": 1, "keywords": 1}
+        total_count = self.collection.count_documents(query)
+        articles = list(self.collection.find(query, projection).limit(200))
+
+  
+        for article in articles:
+            if isinstance(article.get('keywords'), str):
+                article['keywords'] = article['keywords'].split(',')
+
+        return {"total_count": total_count, "articles": articles}
 
     def get_articles_by_author(self, author_name: str) -> List[Dict]:
         query = {"author": author_name}
@@ -189,7 +199,7 @@ class ArticlesRepository:
 
     def get_articles_containing_text(self, text: str) -> List[Dict]:
         query = {"$text": {"$search": text}}
-        projection = {"_id": 1, "title": 1, "description": 1} 
+        projection = {"_id": 1, "title": 1, "description": 1}
         articles = list(self.collection.find(query, projection))
         return [self._convert_bson_to_json(article) for article in articles]
 
@@ -237,3 +247,14 @@ class ArticlesRepository:
         if "last_updated" in article and isinstance(article["last_updated"], datetime):
             article["last_updated"] = article["last_updated"].isoformat()
         return article
+
+    def _convert_bson_to_json_for_keyword(self, article: Dict) -> Dict:
+        return {
+            "title": article.get("title"),
+            "article_id": str(article["_id"]),
+            "postid": article.get("postid"),
+            "url": article.get("url"),  # Corrected field name
+            "article_keywords": article.get("keywords"),
+            "wordCount": article.get("word_count")  # Include the word_count field
+        }
+

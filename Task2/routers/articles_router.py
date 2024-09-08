@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from typing import List, Dict
 from repositories.articles_repository import ArticlesRepository
 from database import Database
+from pydantic import BaseModel
 
 router = APIRouter()
 
@@ -38,7 +39,19 @@ def articles_by_classes(articles_repo: ArticlesRepository = Depends(get_articles
 def recent_articles(articles_repo: ArticlesRepository = Depends(get_articles_repository)):
     return articles_repo.get_recent_articles()
 
-@router.get("/articles_by_keyword/{keyword}", response_model=List[Dict])
+class Article(BaseModel):
+    _id: str
+    title: str
+    postid: str
+    word_count: int
+    url: str
+    keywords: List[str]
+
+class ArticlesResponse(BaseModel):
+    total_count: int
+    articles: List[Article]
+
+@router.get("/articles_by_keyword/{keyword}", response_model=ArticlesResponse)
 def articles_by_keyword(keyword: str, articles_repo: ArticlesRepository = Depends(get_articles_repository)):
     return articles_repo.get_articles_by_keyword(keyword)
 
