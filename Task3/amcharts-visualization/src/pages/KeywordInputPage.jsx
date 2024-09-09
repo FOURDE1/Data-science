@@ -1,4 +1,4 @@
-// src/pages/KeywordInputPage.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputLayout from '../components/layouts/InputLayout';
@@ -26,7 +26,7 @@ const KeywordInputPage = () => {
       inputValue={keyword}
       placeholder="Enter keyword"
     >
-      {/* Additional content can go here if needed */}
+     
     </InputLayout>
   );
 };

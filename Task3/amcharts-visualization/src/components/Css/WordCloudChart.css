@@ -1,16 +1,16 @@
 /* src/components/Css/WordCloudChart.css */
 .wordcloud-container {
 	width: 100%;
-	height: 600px; /* Increase height for a larger word cloud */
+	height: 600px;
 	margin: 0 auto;
 	padding: 20px;
 	border: 1px solid #ddd;
-	border-radius: 50%; /* Makes the container circular */
-	/* background-color: #f9f9f9; */
+	border-radius: 50%;
+
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	overflow: hidden; /* Hide overflow for a clean circular shape */
+	overflow: hidden;
 	position: relative;
 	display: flex;
 	justify-content: center;
-	align-items: center; /* Center the word cloud inside the container */
+	align-items: center;
   }

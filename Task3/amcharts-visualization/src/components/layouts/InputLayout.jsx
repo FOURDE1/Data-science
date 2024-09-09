@@ -1,4 +1,4 @@
-// src/components/layouts/InputLayout.jsx
+
 import React from 'react';
 import '../Css/InputLayout.css';
 

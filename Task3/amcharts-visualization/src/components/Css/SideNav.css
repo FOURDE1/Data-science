@@ -5,11 +5,11 @@
     background-color: #2c3e50;
     padding-top: 20px;
     transition: width 0.3s ease;
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
 }
 
 .sidenav:hover {
-    width: 300px; /* Expand on hover for more space */
+    width: 300px; 
 }
 
 .sidenav .logo {

@@ -8,9 +8,9 @@ const useFetchData = (endpoint) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!endpoint) return; // Only fetch data if the endpoint is valid
+      if (!endpoint) return;
 
-      setLoading(true); // Set loading to true only when a valid fetch is initiated
+      setLoading(true); 
       try {
         const apiUrl = process.env.REACT_APP_API_BASE_URL;
         const response = await axios.get(`${apiUrl}${endpoint}`);

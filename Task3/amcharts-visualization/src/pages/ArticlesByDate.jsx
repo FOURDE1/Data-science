@@ -1,4 +1,4 @@
-// src/pages/ArticlesByDate.jsx
+
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import LineChart from '../components/charts/LineChart';
@@ -10,7 +10,7 @@ const ArticlesByDate = () => {
 
   useEffect(() => {
     if (data) {
-      // Map data to the expected structure for LineChart
+
       const validData = data
         .filter(item => item._id && item.count)
         .map(item => ({ date: new Date(item._id), value: item.count }));

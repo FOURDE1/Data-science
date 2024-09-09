@@ -1,4 +1,4 @@
-// src/components/Layout.jsx
+
 import React from 'react';
 import SideNav from './SideNav';
 import '../Css/Layout.css';

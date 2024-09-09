@@ -1,21 +1,21 @@
-// src/components/charts/WordCloudChart.jsx
+
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import PropTypes from 'prop-types';
-import '../Css/WordCloudChart.css'; // Add custom CSS for additional styling
+import '../Css/WordCloudChart.css';
 
-// Function to format the data to match the expected input for the WordCloud component
+
 const formatData = (data) => {
   return data.map(item => ({
-    text: item.text || item._id, // Use text or _id if text is missing
-    value: item.value || item.count // Use value or count if value is missing
+    text: item.text || item._id,
+    value: item.value || item.count
   }));
 };
 
-// Function to determine font size based on word frequency
+
 const fontSizeMapper = word => Math.log2(word.value) * 10 + 10;
 
-// Function to rotate words to avoid overlap
+
 const rotate = () => Math.floor(Math.random() * 90) * (Math.random() > 0.5 ? 1 : -1); // Random rotation
 
 const WordCloudChart = ({ data }) => {

@@ -1,4 +1,4 @@
-// src/components/charts/StackedBarChart.jsx
+
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as am4core from '@amcharts/amcharts4/core';
@@ -12,11 +12,11 @@ const StackedBarChart = ({ data }) => {
     let chart = am4core.create('chartdiv', am4charts.XYChart);
     chart.data = data;
 
-    // Set chart background color
-    chart.background.fill = am4core.color("#f0f0f0"); // Non-light white color
+
+    chart.background.fill = am4core.color("#f0f0f0");
     chart.background.fillOpacity = 1;
 
-    // Add border to the chart
+
     chart.plotContainer.background.stroke = am4core.color("#000000");
     chart.plotContainer.background.strokeWidth = 2;
     chart.plotContainer.background.strokeOpacity = 1;
@@ -39,12 +39,12 @@ const StackedBarChart = ({ data }) => {
     columnTemplate.strokeWidth = 2;
     columnTemplate.strokeOpacity = 1;
 
-    // Add cursor
+
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.behavior = "panX";
     chart.cursor.xAxis = categoryAxis;
 
-    // Add scrollbar
+
     chart.scrollbarX = new am4core.Scrollbar();
 
     return () => {
@@ -58,11 +58,11 @@ const StackedBarChart = ({ data }) => {
       style={{
         width: '100%',
         height: '500px',
-        border: '2px solid #000000', // Border for the container div
-        borderRadius: '8px', // Rounded corners
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Subtle shadow for better design
-        backgroundColor: '#f0f0f0', // Match the chart background color
-        padding: '10px', // Padding around the chart
+        border: '2px solid #000000',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f0f0f0',
+        padding: '10px',
       }}
     ></div>
   );

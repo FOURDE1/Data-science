@@ -1,4 +1,4 @@
-// src/pages/RecentArticles.jsx
+
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import ArticlesTable from '../components/tables/ArticlesTable';
@@ -10,7 +10,7 @@ const RecentArticles = () => {
 
   useEffect(() => {
     if (data) {
-      // Map data to the expected structure for ArticlesTable
+
       const validData = data.map(item => ({
         id: item._id,
         title: item.title,

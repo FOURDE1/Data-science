@@ -6,26 +6,25 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
 const BubbleChart = ({ data }) => {
   useEffect(() => {
-    // Create root element
+
     const root = am5.Root.new('chartdiv');
 
-    // Set themes
+
     root.setThemes([am5themes_Animated.new(root)]);
 
-    // Prepare data
-     // Prepare data
+
      const chartData = {
       value: 0,
       children: data.map(article => ({
         name: article.title,
-        value: article.wordCount || 1, // Ensure each node has a value, default to 1 if wordCount is 0 or undefined
-        linkWith: ['Articles'], // Provide URL for linking
+        value: article.wordCount || 1,
+        linkWith: ['Articles'],
         url: article.url,
-        children: article.children || [] ,// Add children if any
+        children: article.children || [] ,
       }))
     };
 
-    // Create wrapper container
+
     const container = root.container.children.push(
       am5.Container.new(root, {
         width: am5.percent(100),
@@ -34,7 +33,7 @@ const BubbleChart = ({ data }) => {
       })
     );
 
-    // Create series for force-directed tree
+
     const series = container.children.push(
       am5hierarchy.ForceDirected.new(root, {
         singleBranchOnly: false,
@@ -65,22 +64,22 @@ const BubbleChart = ({ data }) => {
 
     series.links.template.set('strength', 1.5);
     series.links.template.set('strokeWidth', 5);
-    // Add data
+
     series.data.setAll([chartData]);
 
-    // Ensure main node is properly set
+
     const mainNode = series.dataItems.find(item => item.dataContext.name === 'Articles');
     if (mainNode) {
-      mainNode.node.set('value', 100); // Make the main node bigger
-      mainNode.node.set('fill', am5.color(0x333333)); // Color of the main bubble
+      mainNode.node.set('value', 100);
+      mainNode.node.set('fill', am5.color(0x333333));
     }
 
     // Add click event to open URL in new tab
     series.nodes.template.events.on('hit', (ev) => {
       const dataItem = ev.target.dataItem;
-      console.log('Node clicked:', dataItem); // Log the dataItem to see its structure
+      console.log('Node clicked:', dataItem);
       if (dataItem && dataItem.dataContext && dataItem.dataContext.url) {
-        console.log('Opening URL:', dataItem.dataContext.url); // Log the URL before opening
+        console.log('Opening URL:', dataItem.dataContext.url);
         window.open(dataItem.dataContext.url, '_blank');
       } else {
         console.log('No URL found for this node.');
@@ -93,10 +92,10 @@ const BubbleChart = ({ data }) => {
       });
     });
 
-    // Animate on load
+
     series.appear(1000, 100);
 
-    // Cleanup function
+
     return () => {
       root.dispose();
     };
@@ -107,7 +106,7 @@ const BubbleChart = ({ data }) => {
       id="chartdiv"
       style={{
         width: '100%',
-        height: '700px', // Increased height
+        height: '700px',
         border: '2px solid #000000',
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -122,9 +121,9 @@ BubbleChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      wordCount: PropTypes.number, // Optional: can be undefined or 0
+      wordCount: PropTypes.number,
       url: PropTypes.string.isRequired,
-      children: PropTypes.array // Optional: can be undefined
+      children: PropTypes.array 
     })
   ).isRequired
 };

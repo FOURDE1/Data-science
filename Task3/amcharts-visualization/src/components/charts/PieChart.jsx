@@ -1,4 +1,4 @@
-// src/components/charts/PieChart.jsx
+
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as am4core from '@amcharts/amcharts4/core';
@@ -14,13 +14,13 @@ const PieChart = ({ data }) => {
     if (chart) {
       chart.data = data;
 
-      // Ensure chart background is defined before accessing its properties
+
       if (chart.background) {
-        chart.background.fill = am4core.color("#f0f0f0"); // Non-light white color
+        chart.background.fill = am4core.color("#f0f0f0");
         chart.background.fillOpacity = 1;
       }
 
-      // Ensure plotContainer background is defined before accessing its properties
+
       if (chart.plotContainer && chart.plotContainer.background) {
         chart.plotContainer.background.stroke = am4core.color("#000000");
         chart.plotContainer.background.strokeWidth = 2;
@@ -36,7 +36,7 @@ const PieChart = ({ data }) => {
 
       pieSeries.slices.template.tooltipText = "{category}: [bold]{value}[/]";
 
-      // Add a legend
+
       chart.legend = new am4charts.Legend();
     }
 
@@ -53,11 +53,11 @@ const PieChart = ({ data }) => {
       style={{
         width: '100%',
         height: '500px',
-        border: '2px solid #000000', // Border for the container div
-        borderRadius: '8px', // Rounded corners
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Subtle shadow for better design
-        backgroundColor: '#f0f0f0', // Match the chart background color
-        padding: '10px', // Padding around the chart
+        border: '2px solid #000000',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f0f0f0',
+        padding: '10px',
       }}
     ></div>
   );

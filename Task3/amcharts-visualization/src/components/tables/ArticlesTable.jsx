@@ -1,10 +1,9 @@
-// src/components/tables/ArticlesTable.jsx
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
-import styles from './ArticlesTable.module.css'; // Import CSS modules
-
+import styles from './ArticlesTable.module.css';
 const ArticlesTable = ({ data }) => {
   return (
     <div className={`table-responsive mt-4 mb-4 ${styles.tableContainer}`}>

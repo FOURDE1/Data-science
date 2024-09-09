@@ -1,6 +1,6 @@
-/* src/components/tables/ArticlesTable.css */
+
 .table-container {
-	background-color: white; /* Set a default background color */
+	background-color: white;
 	border-radius: 10px;
 	overflow: hidden;
 	margin: 20px 0;
@@ -9,24 +9,24 @@
   .table th, .table td {
 	vertical-align: middle;
 	text-align: center;
-	padding: 15px; /* Padding for cells */
+	padding: 15px;
   }
 
   .table th {
-	background-color: #343a40; /* Dark background for headers */
-	color: white; /* White text for headers */
+	background-color: #343a40;
+	color: white;
   }
 
   .table td {
-	background-color: #f8f9fa; /* Light grey background for cells */
+	background-color: #f8f9fa;
   }
 
   a.text-decoration-none:hover {
-	color: #0056b3; /* Hover color for links */
+	color: #0056b3;
 	text-decoration: underline;
   }
 
-  /* Scoped only to ArticlesTable to prevent overriding global styles */
+
   .articles-table-container {
-	background-color: inherit; /* Inherit from global background color */
+	background-color: inherit; 
   }

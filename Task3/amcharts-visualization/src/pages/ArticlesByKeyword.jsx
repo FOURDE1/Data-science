@@ -13,14 +13,14 @@ const ArticlesByKeyword = () => {
   const [fetchUrl, setFetchUrl] = useState(null);
 
 
-  // Fetch data only when fetchUrl is set
+
   const { data, loading, error } = useFetchData(fetchUrl);
 
   useEffect(() => {
     if (data && data.articles) {
       const mainKeyword = {
         title: searchKeyword,
-        wordCount: 1000, // Or set this dynamically if needed
+        wordCount: 1000,
         url: '',
         isMain: true
       };
@@ -64,7 +64,7 @@ const ArticlesByKeyword = () => {
           onChange={handleInputChange}
           placeholder="Enter keyword"
           className="search-input"
-          style={{ padding: '10px', margin: '10px 0', width: '200px' }} // Inline styles for visibility
+          style={{ padding: '10px', margin: '10px 0', width: '200px' }}
         />
         <button onClick={handleSearch} className="search-button" style={{ padding: '10px' }}>
           Search

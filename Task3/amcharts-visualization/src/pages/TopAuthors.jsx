@@ -1,4 +1,4 @@
-// src/pages/TopAuthors.jsx
+
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import BarChart from '../components/charts/BarChart';
@@ -10,7 +10,7 @@ const TopAuthors = () => {
 
   useEffect(() => {
     if (data) {
-      // Map data to the expected structure for BarChart
+
       const validData = data
         .filter(item => item._id && item.count)
         .map(item => ({ category: item._id, value: item.count }));

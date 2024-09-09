@@ -1,6 +1,5 @@
-// src/pages/Dashboard.jsx
+
 import React, { useState } from 'react';
-import Layout from '../components/layouts/Layout';
 import './Css/Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
@@ -19,7 +18,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Layout>
+    <div>
       <h1>Welcome to the Data Visualization Dashboard</h1>
       <p>
         This dashboard allows you to explore various charts and insights based on the scraped data from Al Mayadeen.
@@ -66,7 +65,7 @@ const Dashboard = () => {
           <code>npm start</code>
         </pre>
       </ol>
-    </Layout>
+    </div>
   );
 };
 

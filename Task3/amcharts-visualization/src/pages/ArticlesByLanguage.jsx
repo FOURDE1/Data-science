@@ -1,4 +1,4 @@
-// src/pages/ArticlesByLanguage.jsx
+
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import PieChart from '../components/charts/PieChart';
@@ -10,7 +10,7 @@ const ArticlesByLanguage = () => {
 
   useEffect(() => {
     if (data) {
-      // Map data to the expected structure for PieChart
+
       const validData = data
         .filter(item => item._id && item.count)
         .map(item => ({ language: item._id, count: item.count }));

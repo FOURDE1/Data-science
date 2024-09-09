@@ -1,4 +1,4 @@
-// src/pages/ArticlesByWordCount.jsx
+
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import HistogramChart from '../components/charts/HistogramChart';
@@ -10,7 +10,7 @@ const ArticlesByWordCount = () => {
 
   useEffect(() => {
     if (data) {
-      // Map data to the expected structure for HistogramChart
+
       const validData = data
         .filter(item => item._id !== undefined && item.count !== undefined)
         .map(item => ({ wordCount: item._id, count: item.count }));

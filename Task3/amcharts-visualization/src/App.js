@@ -9,7 +9,7 @@ import ArticlesByLanguage from './pages/ArticlesByLanguage';
 import ArticlesByCategory from './pages/ArticlesByCategory';
 import RecentArticles from './pages/RecentArticles';
 import ArticlesByKeyword from './pages/ArticlesByKeyword';
-import Dashboard from './pages/Dashboard'; // Assuming you have a Dashboard component
+import Dashboard from './pages/Dashboard'; 
 import Layout from './components/layouts/Layout';
 
 const App = () => (
