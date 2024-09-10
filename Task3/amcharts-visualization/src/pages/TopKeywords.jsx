@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import ChartPage from './ChartPage';
 import WordCloudChart from '../components/charts/WordCloudChart';
@@ -10,7 +9,6 @@ const TopKeywords = () => {
 
   useEffect(() => {
     if (data) {
-
       const validData = data
         .filter(item => item._id && item.count)
         .map(item => ({ text: item._id, value: item.count }));

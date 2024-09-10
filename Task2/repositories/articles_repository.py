@@ -27,6 +27,7 @@ class ArticlesRepository:
 
     def get_articles_by_date(self) -> List[Dict]:
         pipeline = [
+            {"$match": {"published_time": {"$gte": datetime(2023, 1, 1), "$lt": datetime(2025, 1, 1)}}},  # Filter for dates from 2023 to end of 2024
             {"$group": {"_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$published_time"}}, "count": {"$sum": 1}}},
             {"$sort": {"_id": 1}}
         ]
@@ -34,6 +35,7 @@ class ArticlesRepository:
 
     def get_articles_by_word_count(self) -> List[Dict]:
         pipeline = [
+            {"$match": {"word_count": {"$gt": 0}}},  # Exclude articles with word count 0
             {"$group": {"_id": "$word_count", "count": {"$sum": 1}}},
             {"$sort": {"_id": 1}}
         ]
@@ -69,22 +71,33 @@ class ArticlesRepository:
         total_count = self.collection.count_documents(query)
         articles = list(self.collection.find(query, projection).limit(200))
 
-  
+
         for article in articles:
             if isinstance(article.get('keywords'), str):
                 article['keywords'] = article['keywords'].split(',')
 
         return {"total_count": total_count, "articles": articles}
 
-    def get_articles_by_author(self, author_name: str) -> List[Dict]:
+    def get_articles_by_author(self, author_name: str) -> Dict:
         query = {"author": author_name}
-        articles = list(self.collection.find(query))
-        return [self._convert_bson_to_json(article) for article in articles]
+        projection = {"title": 1, "postid": 1, "author": 1, "published_time": 1}
+
+        total_count = self.collection.count_documents(query)
+        articles = list(self.collection.find(query, projection).limit(200))
+
+        return {
+            "total_count": total_count,
+            "articles": [self._convert_bson_to_json(article) for article in articles]
+        }
 
     def get_top_classes(self, limit: int = 10) -> List[Dict]:
         pipeline = [
             {"$unwind": "$classes"},
-            {"$group": {"_id": "$classes.value", "count": {"$sum": 1}}},
+            {"$group": {
+                "_id": "$classes.value",
+                "count": {"$sum": 1},
+                "authors": {"$addToSet": "$author"}
+           }},
             {"$sort": {"count": -1}},
             {"$limit": limit}
         ]
@@ -97,7 +110,8 @@ class ArticlesRepository:
 
     def get_articles_with_video(self) -> List[Dict]:
         query = {"video_duration": {"$ne": None}}
-        articles = list(self.collection.find(query))
+        projection = {"_id": 1, "post_id": 1, "title": 1, "video_duration": 1}
+        articles = list(self.collection.find(query, projection))
         return [self._convert_bson_to_json(article) for article in articles]
 
     def get_articles_by_year(self, year: int) -> List[Dict]:

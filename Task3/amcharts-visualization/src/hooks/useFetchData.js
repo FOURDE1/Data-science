@@ -10,7 +10,7 @@ const useFetchData = (endpoint) => {
     const fetchData = async () => {
       if (!endpoint) return;
 
-      setLoading(true); 
+      setLoading(true);
       try {
         const apiUrl = process.env.REACT_APP_API_BASE_URL;
         const response = await axios.get(`${apiUrl}${endpoint}`);

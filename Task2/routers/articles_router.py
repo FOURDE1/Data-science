@@ -3,6 +3,7 @@ from typing import List, Dict
 from repositories.articles_repository import ArticlesRepository
 from database import Database
 from pydantic import BaseModel
+from models import ArticlesByAuthorResponse
 
 router = APIRouter()
 
@@ -55,7 +56,7 @@ class ArticlesResponse(BaseModel):
 def articles_by_keyword(keyword: str, articles_repo: ArticlesRepository = Depends(get_articles_repository)):
     return articles_repo.get_articles_by_keyword(keyword)
 
-@router.get("/articles_by_author/{author_name}", response_model=List[Dict])
+@router.get("/articles_by_author/{author_name}", response_model=ArticlesByAuthorResponse)
 def articles_by_author(author_name: str, articles_repo: ArticlesRepository = Depends(get_articles_repository)):
     return articles_repo.get_articles_by_author(author_name)
 

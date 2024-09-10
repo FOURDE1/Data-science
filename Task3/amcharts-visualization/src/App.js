@@ -9,8 +9,15 @@ import ArticlesByLanguage from './pages/ArticlesByLanguage';
 import ArticlesByCategory from './pages/ArticlesByCategory';
 import RecentArticles from './pages/RecentArticles';
 import ArticlesByKeyword from './pages/ArticlesByKeyword';
-import Dashboard from './pages/Dashboard'; 
+import Dashboard from './pages/Dashboard';
 import Layout from './components/layouts/Layout';
+import ArticlesByAuthor from './pages/ArticlesByAuthor';
+import TopClasses from './pages/TopClasses';
+import ArticleDetails from './pages/ArticleDetails';
+import ArticlesWithVideos from './pages/ArticlesWithVideos';
+
+import LongestArticles from './pages/LongestArticles';
+import ArticlesByYear from './pages/ArticlesByYear';
 
 const App = () => (
   <Router>
@@ -25,7 +32,14 @@ const App = () => (
           <Route path="/chart/articles_by_language" element={<ArticlesByLanguage />} />
           <Route path="/chart/articles_by_classes" element={<ArticlesByCategory />} />
           <Route path="/chart/recent_articles" element={<RecentArticles />} />
-          <Route path="/chart/articles_by_keyword/" element={<ArticlesByKeyword />} />
+          <Route path="/chart/articles_by_keyword" element={<ArticlesByKeyword />} />
+          <Route path="/chart/articles_by_author" element={<ArticlesByAuthor />} />
+          <Route path="/chart/top_classes" element={<TopClasses />} />
+          <Route path="/chart/article_details" element={<ArticleDetails />} />
+          <Route path="/chart/articles_with_video" element={<ArticlesWithVideos />} />
+          <Route path="/chart/articles_by_year" element={<ArticlesByYear />} />
+          <Route path="/chart/longest_articles" element={<LongestArticles />} />
+
         </Routes>
       </div>
     </Layout>

@@ -28,7 +28,7 @@ const BarChart = ({ data }) => {
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.title.text = 'Articles Published';
-
+    valueAxis.logarithmic = true;
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueY = 'value';
     series.dataFields.categoryX = 'category';
@@ -55,7 +55,7 @@ const BarChart = ({ data }) => {
         borderRadius: '8px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         backgroundColor: '#f0f0f0',
-        padding: '10px', 
+        padding: '10px',
       }}
     ></div>
   );

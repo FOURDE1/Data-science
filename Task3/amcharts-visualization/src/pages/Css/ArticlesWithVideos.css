@@ -1,0 +1,16 @@
+.articles-with-videos-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	width: 100%;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	overflow-y: auto;
+  }
+
+  .articles-with-videos-page h1 {
+	margin-bottom: 20px;
+	font-size: 2em;
+	color: #333;
+  }
