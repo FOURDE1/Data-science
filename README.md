@@ -9,13 +9,13 @@ This repository contains multiple tasks/projects. Each task is located in its ow
    - **Directory**: [task1/](Task1/)
    - **Details**: See the `README.md` file in the [task1](Task1/) directory.
 
-2. **Task 2: Endpoints to Retrieve scraped data**
+2. **Task 2: Endpoints to Retrieve Scraped Data**
    - **Description**: Description of another task.
    - **Directory**: [task2/](Task2/)
    - **Details**: See the `README.md` file in the [task2](Task2/) directory.
 
-3. **Task 3: Different Task**
-   - **Description**: Description of a different task.
+3. **Task 3: Data Visualization**
+   - **Description**: Displaying the charts for the analyzed data.
    - **Directory**: [task3/](Task3/)
    - **Details**: See the `README.md` file in the [task3](Task3/) directory.
 

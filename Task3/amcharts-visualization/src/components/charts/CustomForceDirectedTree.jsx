@@ -4,22 +4,18 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5hierarchy from '@amcharts/amcharts5/hierarchy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 
-const ForceDirectedTree = ({ data }) => {
+const CustomForceDirectedTree = ({ data }) => {
   useEffect(() => {
     const root = am5.Root.new('chartdiv');
 
     root.setThemes([am5themes_Animated.new(root)]);
 
-    
+    // Transforming the input data
     const chartData = {
-      value: 0,
+      name: "Top Keywords",
       children: data.map((item) => ({
         name: item._id,
         value: item.count,
-        children: item.authors.map((author) => ({
-          name: author,
-          value: 1,
-        })),
       })),
     };
 
@@ -33,18 +29,14 @@ const ForceDirectedTree = ({ data }) => {
 
     const series = container.children.push(
       am5hierarchy.ForceDirected.new(root, {
-        singleBranchOnly: true,
-        downDepth: 1,
-        initialDepth: 1,
         valueField: 'value',
         categoryField: 'name',
         childDataField: 'children',
         idField: 'name',
-        minRadius: 40,
-        maxRadius: 100,
-        manyBodyStrength: -15,
-        centerStrength: 2,
-        linkWithField: 'linkWith',
+        minRadius: 20,
+        maxRadius: 80,
+        manyBodyStrength: -20,
+        centerStrength: 0.5,
       })
     );
 
@@ -65,9 +57,9 @@ const ForceDirectedTree = ({ data }) => {
 
     series.data.setAll([chartData]);
 
-
+    // Customize node appearance
     series.nodes.template.setAll({
-      tooltipText: '{name}',
+      tooltipText: '{name}: {value}',
       radius: 40,
       fill: am5.color(0x88b04b),
     });
@@ -76,11 +68,10 @@ const ForceDirectedTree = ({ data }) => {
       fill: am5.color(0x6b5b95),
     });
 
-
+    // Add click event to expand/collapse nodes
     series.nodes.template.events.on('hit', (ev) => {
       const node = ev.target;
       const dataItem = node.dataItem;
-
 
       if (dataItem && dataItem.children) {
         if (dataItem.isExpanded) {
@@ -116,14 +107,13 @@ const ForceDirectedTree = ({ data }) => {
   );
 };
 
-ForceDirectedTree.propTypes = {
+CustomForceDirectedTree.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
-      authors: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
 };
 
-export default ForceDirectedTree;
+export default CustomForceDirectedTree;

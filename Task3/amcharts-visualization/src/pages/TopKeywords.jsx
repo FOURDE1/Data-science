@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import ChartPage from './ChartPage';
-import WordCloudChart from '../components/charts/WordCloudChart';
+import React, { useState, useEffect } from 'react';
 import useFetchData from '../hooks/useFetchData';
+import ChartPage from './ChartPage';
+import CustomForceDirectedTree from '../components/charts/CustomForceDirectedTree'; // Import the new component
 
 const TopKeywords = () => {
   const { data, loading, error } = useFetchData('/articles/top_keywords');
@@ -9,9 +9,26 @@ const TopKeywords = () => {
 
   useEffect(() => {
     if (data) {
-      const validData = data
-        .filter(item => item._id && item.count)
-        .map(item => ({ text: item._id, value: item.count }));
+      const keywordCounts = {};
+
+      data.forEach(item => {
+        if (item._id) {
+          const keywords = item._id.split(',');
+          keywords.forEach(keyword => {
+            if (keywordCounts[keyword]) {
+              keywordCounts[keyword] += item.count;
+            } else {
+              keywordCounts[keyword] = item.count;
+            }
+          });
+        }
+      });
+
+      const validData = Object.keys(keywordCounts).map(keyword => ({
+        _id: keyword,
+        count: keywordCounts[keyword],
+      }));
+
       setMappedData(validData);
     }
   }, [data]);
@@ -21,7 +38,7 @@ const TopKeywords = () => {
       title="Top Keywords"
       loading={loading}
       error={error}
-      ChartComponent={WordCloudChart}
+      ChartComponent={CustomForceDirectedTree}
       data={mappedData}
     />
   );
